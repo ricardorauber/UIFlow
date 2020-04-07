@@ -1,2 +1,1 @@
-# UIFlow
-A navigation framework for iOS projects
+# A navigation framework for iOS projects
