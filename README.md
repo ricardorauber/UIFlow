@@ -1,5 +1,7 @@
 # UIFlow  - A navigation and data interaction framework for iOS projects
 
+![App Sample](UIFlow.jpg)
+
 #### TL; DR
 
 `UIFlow` is a framework to let the `Coordinator` handle the navigation and the `ViewModel` handle data interaction. 
