@@ -40,7 +40,7 @@ Thanks!
 
 ## What is it?
 
-There are many design patterns, architectures and ideas out there about how an `iOS` app should be structured. Well, this this another one, but this is not a breaktrough disruptive framework that will blow your mind, this is a combination of ideas that worked pretty well for my needs. 
+There are many design patterns, architectures and ideas out there about how an `iOS` app should be structured. Well, this is another one, but this is not a breaktrough disruptive framework that will blow your mind, this is a combination of ideas that worked pretty well for my needs. 
 
 After working many years in many different app kinds and sizes, I saw that I could use a simple structure to handle most of them, but it should follow some principles:
 
