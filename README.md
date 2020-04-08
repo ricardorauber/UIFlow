@@ -109,7 +109,7 @@ So simple! 😎
 
 ### Coordinator
 
-You might already saw many different implementations of the `Coordinator` pattern. This is very similar to those out there, but the big difference is that it has only one child while usually you see many children for the coordinator. I will explain about the child behaviour soon, but first let's explain how the `Coordinator` works.
+You might already saw many different implementations of the `Coordinator` pattern. This is very similar to those out there, but the big difference is that it has only one child running at a time while usually you see many children for the coordinator. I will explain about the child behaviour soon, but first let's explain how the `Coordinator` works.
 
 `View Controllers` should not know from where the user came from and where the user will go. This is almost like the idea of `Dependency Injection`, because the `ViewController` will only do what it was meant to do and tell the `Coordinator` what is the `intention` of the user.
 
@@ -172,11 +172,11 @@ extension AppCoordinator: LoginViewNavigation {
 
 #### Child Coordinator
 
-A child `Coordinator` is a different flow that will be executed and when it finishes, it will go back to the parent flow. You can think of it as the different features of the app that involves many scenes. The only thing is that the `Coordinator` will execute only one child, but a child could have its own child and so on. 
+A child `Coordinator` is a different flow that will be executed and when it finishes, it will go back to the parent flow. You can think of it as the different features of the app that involves many scenes. The only thing is that the `Coordinator` will execute only one child at a time, but a child could have its own child and so on. 
 
-What is the benefit of have only one child instead of a children's list? Simple, most of the time you will only be seeing one flow and it will go back to the parent when finished. Because of that, in `UIFlow` you have only one child. 
+What is the benefit of have only one child at a time instead of many children running in parallel? Simple, most of the time you will only be seeing one flow and it will go back to the parent when finished. Because of that, in `UIFlow` you run only one child at a time. 
 
-When you start the child flow, the parent flow will hold the reference of the last `ViewController` that is being presented and when the child finishes, the parent flow will go back in the navigation stack to that `ViewController`.
+When you start the child's flow, the parent's flow will hold the reference of the last `ViewController` that is being presented and when the child finishes, the parent flow will go back in the navigation stack to that `ViewController`.
 
 This is an example of what can you do in your project:
 
