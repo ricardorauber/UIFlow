@@ -40,7 +40,7 @@ Thanks!
 
 ## What is it?
 
-There are many design patterns, architectures and ideas out there about how an iOS app should be structured. Well, this this another one, but this is not a breaktrough disruptive framework that will blow your mind, this is a combination of ideas that worked pretty well for my needs. 
+There are many design patterns, architectures and ideas out there about how an `iOS` app should be structured. Well, this this another one, but this is not a breaktrough disruptive framework that will blow your mind, this is a combination of ideas that worked pretty well for my needs. 
 
 After working many years in many different app kinds and sizes, I saw that I could use a simple structure to handle most of them, but it should follow some principles:
 
@@ -53,7 +53,7 @@ After working many years in many different app kinds and sizes, I saw that I cou
 
 Nice list, right? Following these concepts, I came up with `UIFlow` and I hope it could help in your projects.
 
-Oh, you might be asking *"What about SwiftUI?"*. That's a huge step in iOS development, but there are so many projects out there using `UIKit` that it is almost impossible to move to `SwiftUI` and older `iOS` versions would not be able to use it, so `UIFlow` could be a good possibility.
+Oh, you might be asking *"What about SwiftUI?"*. That's a huge step in `iOS` development, but there are so many projects out there using `UIKit` that it is almost impossible to move to `SwiftUI` and older `iOS` versions would not be able to use it, so `UIFlow` could be a good option.
 
 ## Setup
 
@@ -69,7 +69,7 @@ end
 
 ## How does it work?
 
-Ok, let's start with the basics. `UIFlow` is so simple that it has only 4 public models:
+Ok, let's start with the basics. `UIFlow` is so simple that it has only 4 public protocols/models:
 
 * Storyboarded
 * Coordinator
@@ -84,14 +84,16 @@ See? Now let's talk about each part of it.
 
 ## Concepts
 
-#### Storyboarded
+### Storyboarded
 
 Ok, if you prefer `NIBs` over `Storyboards`, feel free to move to the next concept, but after seeing this, you might change your mind. I like `Storyboards`, but only for designing a specific `ViewController`. 
 
-I saw this protocol out there, it can instantiate a `ViewController` from the `initial view controller` of a `storyboard file with the same name` and fell in love with it, it is amazing! Here you can see how easy it is to use, let's say that we have created this `LoginViewController`:
+I saw this protocol out there, it can instantiate a `ViewController` from the `initial view controller` of a `storyboard file with the same name` and fell in love with it, it is amazing! Here you can see how easy it is to use, let's say that we have created this `LoginViewController` and set it as the initial view controller:
 
 * LoginViewController.storyboard
 * LoginViewController.swift
+
+![Storyboard](UIFlow-Storyboard.png)
 
 This is how you use it in a `Coordinator`:
 
@@ -105,9 +107,9 @@ func navigateToLogin(animated: Bool) {
 
 So simple! 😎
 
-#### Coordinator
+### Coordinator
 
-You might already saw many different implementations of the `Coordinator` pattern. This is very similar to those out there, but the big difference is that is has only one child while usually you see many children for the coordinator. I will explain about the child behaviour soon, but first let's explain how the `Coordinator` works.
+You might already saw many different implementations of the `Coordinator` pattern. This is very similar to those out there, but the big difference is that it has only one child while usually you see many children for the coordinator. I will explain about the child behaviour soon, but first let's explain how the `Coordinator` works.
 
 `View Controllers` should not know from where the user came from and where the user will go. This is almost like the idea of `Dependency Injection`, because the `ViewController` will only do what it was meant to do and tell the `Coordinator` what is the `intention` of the user.
 
@@ -117,7 +119,56 @@ On a `LoginViewController`, there will be some inputs with validation and the lo
 
 The `LoginViewController` will only tell the `Coordinator` that the login was successful and leave the navigation to the `Coordinator`. With that, an `AccessCoordinator` could simple navigate to the menu and a `PremiumCoordinator` could navigate to a secret area, for example. 
 
-See what's happening? The `LoginViewController` doesn't care about where it should go, just need to do what it was meant to do. 
+See what's happening? The `LoginViewController` doesn't care about where it should go, just need to do what it was meant to do.
+
+Let's see it in action:
+
+```swift
+import UIFlow
+
+class AppCoordinator: Coordinator {
+	
+	// MARK: - Properties
+	
+	var firstTime = true
+	var loggedIn = false
+	
+	// MARK: - Coordinator
+	
+	override func start(animated: Bool) {
+		if firstTime {
+			navigateToOnboarding(animated: animated)
+		} else if loggedIn {
+			navigateToMenu(animated: animated)
+		} else {
+			navigateToLogin(animated: animated)
+		}
+		if let currentViewController = navigation.viewControllers.last {
+			navigation.setViewControllers([currentViewController], animated: false)
+		}
+	}
+}
+
+// MARK: - LoginViewNavigation
+extension AppCoordinator: LoginViewNavigation {
+	
+	func navigateToLogin(animated: Bool) {
+		guard let scene = LoginViewController.instantiate() else { return }
+		scene.coordinator = self
+		navigation.pushViewController(scene, animated: animated)
+	}
+	
+	func goToUserRegistration(_ sender: LoginViewController) {
+		navigateToUserRegistration(animated: true)
+	}
+	
+	func finishedLogin(_ sender: LoginViewController) {
+		loggedIn = true
+		start(animated: true)
+	}
+}
+...
+```
 
 #### Child Coordinator
 
@@ -131,7 +182,26 @@ This is an example of what can you do in your project:
 
 ![Children Coordinators](UIFlow-Children.jpg)
 
-#### ViewModel
+So how can you go to a child flow? Like this:
+
+```swift
+func goToItems(_ sender: MenuViewController) {
+	let itemsCoordinator = ItemsCoordinator(navigation: navigation)
+	start(child: itemsCoordinator, animated: true)
+}
+```
+
+Easy enough. Did finish your business in the flow? You can go back like this:
+
+```swift
+func closeItemsList(_ sender: ItemsListViewController) {
+	finish(animated: true)
+}
+```
+
+And that's all! It will go back to the parent's flow.
+
+### ViewModel
 
 MVC, MVVM, MVP, VIPER... there are so many different possibilities! I have chosen the `MVVM` approach for some reasons:
 
@@ -194,11 +264,11 @@ func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange
 
 In this case, the `LoginViewController` is a subclass of the `UIFlowViewController`, so it has the `updateUI()` method that was used in the `subscribe` method to be executed everytime there is a change on the `ViewModel`. Please take a look at the next concept for a detailed explanation on it.
 
-#### UIFlowViewController
+### UIFlowViewController
 
 All of the other objects are dependency-free, so you can use them together or not, but to make the best use of this framework, you should use the `UIFlowViewController`.
 
-Why? Simple, it already has a `Coordinator` and a `ViewModel` properties. They are generic and the `UIFlowViewController` will do the dirt part of subscribing and unsubscribing from the notifications of the `ViewModel`.
+Why? Simple, it already has `ViewModel` and `Coordinator` properties. They are generic and the `UIFlowViewController<ViewModel, Coordinator>` will do the dirt part of subscribing and unsubscribing from the notifications of the `ViewModel`.
 
 If you have read all the documentation, you will now understand how all the pieces will come together nicely, otherwise it might be missing some information, so please take a look at the other concepts first.
 
@@ -217,7 +287,7 @@ class LoginViewController: UIFlowViewController<LoginViewFeatures, LoginViewNavi
 	
 	// MARK: - User Interface
 
-	public override func updateUI() {
+	override func updateUI() {
 		guard let viewModel = viewModel else { return }
 		loginButton.isEnabled = viewModel.canSubmit
 		if viewModel.isLoggedIn {
