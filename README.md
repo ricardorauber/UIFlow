@@ -1,4 +1,4 @@
-# A navigation framework for iOS projects
+# UIFlow  - A navigation and data interaction framework for iOS projects
 
 #### TL; DR
 
