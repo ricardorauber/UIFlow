@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/UIFlow.svg?style=flat)](http://cocoadocs.org/docsets/UIFlow)
 [![Platform](https://img.shields.io/cocoapods/p/UIFlow.svg?style=flat)](http://cocoadocs.org/docsets/UIFlow)
 
-![App Sample](UIFlow.jpg)
+![App Sample](https://raw.githubusercontent.com/ricardorauber/UIFlow/master/UIFlow.jpg)
 
 #### TL; DR
 
@@ -83,7 +83,7 @@ Ok, let's start with the basics. `UIFlow` is so simple that it has only 4 public
 
 Really, that's it? Yes! In general, this is how a simple app looks like:
 
-![General flow](UIFlow-General.jpg)
+![General flow](https://raw.githubusercontent.com/ricardorauber/UIFlow/master/UIFlow-General.jpg)
 
 See? Now let's talk about each part of it.
 
@@ -98,7 +98,7 @@ I saw this protocol out there, it can instantiate a `ViewController` from the `i
 * LoginViewController.storyboard
 * LoginViewController.swift
 
-![Storyboard](UIFlow-Storyboard.png)
+![Storyboard](https://raw.githubusercontent.com/ricardorauber/UIFlow/master/UIFlow-Storyboard.png)
 
 This is how you use it in a `Coordinator`:
 
@@ -185,7 +185,7 @@ When you start the child's flow, the parent's flow will hold the reference of th
 
 This is an example of what can you do in your project:
 
-![Children Coordinators](UIFlow-Children.jpg)
+![Children Coordinators](https://raw.githubusercontent.com/ricardorauber/UIFlow/master/UIFlow-Children.jpg)
 
 So how can you go to a child flow? Like this:
 
