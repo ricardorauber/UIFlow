@@ -1,5 +1,10 @@
 # UIFlow  - A navigation and data interaction framework for iOS projects
 
+[![Build Status](https://travis-ci.com/ricardorauber/UIFlow.svg?branch=master)](http://travis-ci.com/)
+[![CocoaPods Version](https://img.shields.io/cocoapods/v/UIFlow.svg?style=flat)](http://cocoadocs.org/docsets/UIFlow)
+[![License](https://img.shields.io/cocoapods/l/UIFlow.svg?style=flat)](http://cocoadocs.org/docsets/UIFlow)
+[![Platform](https://img.shields.io/cocoapods/p/UIFlow.svg?style=flat)](http://cocoadocs.org/docsets/UIFlow)
+
 ![App Sample](UIFlow.jpg)
 
 #### TL; DR
