@@ -1,6 +1,8 @@
 import UIFlow
 
-class TestViewModel: ViewModel {
+class TestViewModel: ModelObservable {
+	
+	var observers: [ModelObserver] = []
 	
 	private(set) var loaded: Bool
 	private(set) var name: String
@@ -10,7 +12,6 @@ class TestViewModel: ViewModel {
 		self.name = name
 		self.age = age
 		loaded = false
-		super.init()
 	}
 	
 	func update(name: String) {

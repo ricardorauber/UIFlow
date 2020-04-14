@@ -13,8 +13,8 @@ open class UIFlowViewController<VM, C>: UIViewController, Storyboarded {
 	/// View model of the scene
 	public var viewModel: VM? {
 		didSet {
-			(oldValue as? ViewModel)?.unsubscribe(self)
-			(viewModel as? ViewModel)?.subscribe(self) { [weak self] in
+			(oldValue as? ModelObservable)?.unsubscribe(self)
+			(viewModel as? ModelObservable)?.subscribe(self) { [weak self] in
 				DispatchQueue.main.async {
 					self?.updateUI()
 				}
@@ -23,7 +23,7 @@ open class UIFlowViewController<VM, C>: UIViewController, Storyboarded {
 	}
 	
 	deinit {
-		(viewModel as? ViewModel)?.unsubscribe(self)
+		(viewModel as? ModelObservable)?.unsubscribe(self)
 	}
 	
 	// MARK: - User Interface

@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.license               = 'MIT'
   s.homepage              = 'http://ricardorauber.com'
   s.source                = { :git => 'https://github.com/ricardorauber/UIFlow.git', :tag => s.version }
-  s.summary               = 'A navigation framework for iOS projects'
+  s.summary               = 'A navigation and data interaction framework for iOS projects'
   s.pod_target_xcconfig   = { 'ENABLE_TESTABILITY' => 'YES' }
   s.source_files          = 'Classes/**/*'
 

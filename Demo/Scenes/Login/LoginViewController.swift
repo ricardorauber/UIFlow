@@ -1,6 +1,6 @@
 import UIFlow
 
-class LoginViewController: UIFlowViewController<ViewModel, LoginViewNavigation> {
+class LoginViewController: UIFlowViewController<ModelObservable, LoginViewNavigation> {
 	
 	@IBAction func userRegistrationButtonTouchUpInside(_ sender: Any) {
 		coordinator?.goToUserRegistration(self)

@@ -1,6 +1,6 @@
 import UIFlow
 
-class MenuViewController: UIFlowViewController<ViewModel, MenuViewNavigation> {
+class MenuViewController: UIFlowViewController<ModelObservable, MenuViewNavigation> {
 	
 	@IBAction func itemsButtonTouchUpInside(_ sender: Any) {
 		coordinator?.goToItems(self)

@@ -10,7 +10,7 @@
 #### TL; DR
 
 `UIFlow` is a framework to let the `Coordinator` handle the navigation and the `ViewModel` handle data interaction. 
-You just need to make your `ViewControllers` subclass the `UIFlowViewController` and create `Coordinators` and `ViewModels` that will be used by these `ViewControllers`.
+You just need to make your `ViewControllers` subclass the `UIFlowViewController` and create `Coordinators` and `ViewModels` that will be used by these `ViewControllers`. To get the model observation, the `ViewModel` should implement the `ModelObservable` protocol.
 
 There is also a `Storyboarded` protocol that will instantiate your `ViewController` from a storyboard file with the same name. 
 Now, if you are really interested in how this can make your life easier, please read this documentation fully, it will take only a few minutes, but you can also download the code and see it in action with the given `Demo` project.
@@ -74,11 +74,12 @@ end
 
 ## How does it work?
 
-Ok, let's start with the basics. `UIFlow` is so simple that it has only 4 public protocols/models:
+Ok, let's start with the basics. `UIFlow` is so simple that it has only 5 protocols/models:
 
 * Storyboarded
 * Coordinator
-* ViewModel
+* ModelObserver
+* ModelObservable
 * UIFlowViewController
 
 Really, that's it? Yes! In general, this is how a simple app looks like:
@@ -206,7 +207,7 @@ func closeItemsList(_ sender: ItemsListViewController) {
 
 And that's all! It will go back to the parent's flow.
 
-### ViewModel
+### ViewModel - ModelObservable
 
 MVC, MVVM, MVP, VIPER... there are so many different possibilities! I have chosen the `MVVM` approach for some reasons:
 
@@ -215,11 +216,11 @@ MVC, MVVM, MVP, VIPER... there are so many different possibilities! I have chose
 * Android has it natively
 * `ViewModel` doesn't own the `ViewController`
 
-I am not saying that this is the best design, but it is my favorite. In `UIFlow`, the `ViewModel` is very simple and can be observed by many observers. This means that you can either have one `ViewModel` per `ViewController` (my preference) or a shared `ViewModel` owned by the `Coordinator` to be used by many `ViewControllers`.
+I am not saying that this is the best design, but it is my favorite. In `UIFlow`, the `ViewModel` is actually just a generic property that can be used to observe data. It can get really interesting if you implement the `ModelObservable` protocol. By doing that, your `ViewModel` will be able to be observed by many different observers. This means that you can either have one `ViewModel` per `ViewController` (my preference) or a shared `ViewModel` owned by the `Coordinator` to be used by many different `ViewControllers`.
 
-Any object that wants to listen for updates in the `ViewModel` data should call the `subscribe` method to be notified when it happens. In the same way, to stop listening you just need to call the `unsubscribe` method.
+Any object that wants to listen for updates in the `ModelObservable` object should call the `subscribe` method to be notified when it happens. In the same way, to stop listening you just need to call the `unsubscribe` method.
 
-Now the integration part, let's say you have a `LoginViewModel` with `email` and `password` properties. If you want to tell all the observers when the data was changed, you can call the `notifyObservers()` method and it will execute all related closures, like this:
+Now the integration part, let's say you have a `LoginViewModel` with `email` and `password` properties and you did create an extension to implement the `ModelObservable` protocol. If you want to tell all the observers when the data was changed, you can call the `notifyObservers()` method and it will execute all related closures, like this:
 
 ```swift
 private(set) var email: String
@@ -267,13 +268,13 @@ func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange
 }
 ```
 
-In this case, the `LoginViewController` is a subclass of the `UIFlowViewController`, so it has the `updateUI()` method that was used in the `subscribe` method to be executed everytime there is a change on the `ViewModel`. Please take a look at the next concept for a detailed explanation on it.
+In this case, the `LoginViewController` is a subclass of the `UIFlowViewController`, so it has the `updateUI()` method that was used in the `subscribe` method to be executed everytime there is a change on the `ViewModel` generic property. Please take a look at the next concept for a detailed explanation on it.
 
 ### UIFlowViewController
 
 All of the other objects are dependency-free, so you can use them together or not, but to make the best use of this framework, you should use the `UIFlowViewController`.
 
-Why? Simple, it already has `ViewModel` and `Coordinator` properties. They are generic and the `UIFlowViewController<ViewModel, Coordinator>` will do the dirt part of subscribing and unsubscribing from the notifications of the `ViewModel`.
+Why? Simple, it already has `ViewModel` and `Coordinator` properties. They are generic and the `UIFlowViewController<ViewModel, Coordinator>` will do the dirt part of subscribing and unsubscribing from the notifications of the `ViewModel` in case it implements the `ModelObservable` protocol.
 
 If you have read all the documentation, you will now understand how all the pieces will come together nicely, otherwise it might be missing some information, so please take a look at the other concepts first.
 

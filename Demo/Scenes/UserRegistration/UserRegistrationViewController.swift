@@ -1,6 +1,6 @@
 import UIFlow
 
-class UserRegistrationViewController: UIFlowViewController<ViewModel, UserRegistrationViewNavigation> {
+class UserRegistrationViewController: UIFlowViewController<ModelObservable, UserRegistrationViewNavigation> {
 	
 	@IBAction func registerButtonTouchUpInside(_ sender: Any) {
 		coordinator?.userRegistrationCompleted(self)

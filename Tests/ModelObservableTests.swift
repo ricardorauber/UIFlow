@@ -2,12 +2,12 @@ import Quick
 import Nimble
 @testable import UIFlow
 
-class ViewModelTests: QuickSpec {
+class ModelObservableTests: QuickSpec {
 	override func spec() {
 		
 		var viewModel: TestViewModel!
 
-		describe("ViewModel") {
+		describe("ModelObservable") {
 
 			context("initialization") {
 

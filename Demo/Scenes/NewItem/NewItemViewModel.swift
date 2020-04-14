@@ -1,6 +1,8 @@
 import UIFlow
 
-class NewItemViewModel: ViewModel {
+class NewItemViewModel: ModelObservable {
+	
+	var observers: [ModelObserver] = []
 	
 	private(set) var state: NewItemViewState = .started
 }
