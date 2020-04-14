@@ -72,6 +72,10 @@ target 'Your target name' do
 end
 ```
 
+#### Manual Installation
+
+If you want to add it manually to your project, without a package manager, just copy all files from the `Classes` folder to your project.
+
 ## How does it work?
 
 Ok, let's start with the basics. `UIFlow` is so simple that it has only 5 protocols/models:
