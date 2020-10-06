@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13CBD0F1252CD2CE00C7796C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 13CBD0F0252CD2CD00C7796C /* README.md */; };
 		479D2948243D10C7000BF2F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2947243D10C7000BF2F9 /* AppDelegate.swift */; };
 		479D2951243D10CA000BF2F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 479D2950243D10CA000BF2F9 /* Assets.xcassets */; };
 		479D2954243D10CA000BF2F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479D2952243D10CA000BF2F9 /* LaunchScreen.storyboard */; };
@@ -48,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		13CBD0F0252CD2CD00C7796C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		13CBD102252CFAB200C7796C /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; name = .travis.yml; path = ../.travis.yml; sourceTree = "<group>"; };
 		479D2944243D10C7000BF2F9 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		479D2947243D10C7000BF2F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		479D2950243D10CA000BF2F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -113,6 +113,7 @@
 		479D293B243D10C7000BF2F9 = {
 			isa = PBXGroup;
 			children = (
+				13CBD102252CFAB200C7796C /* .travis.yml */,
 				13CBD0F0252CD2CD00C7796C /* README.md */,
 				479D2946243D10C7000BF2F9 /* Demo */,
 				479D295D243D10CB000BF2F9 /* DemoTests */,
@@ -360,7 +361,6 @@
 			files = (
 				479D29A6243D1755000BF2F9 /* LoginViewController.storyboard in Resources */,
 				479D2954243D10CA000BF2F9 /* LaunchScreen.storyboard in Resources */,
-				13CBD0F1252CD2CE00C7796C /* README.md in Resources */,
 				479D299C243D1755000BF2F9 /* MenuViewController.storyboard in Resources */,
 				479D2995243D1755000BF2F9 /* NewItemViewController.storyboard in Resources */,
 				479D2951243D10CA000BF2F9 /* Assets.xcassets in Resources */,
