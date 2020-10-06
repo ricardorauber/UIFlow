@@ -3,13 +3,25 @@ import UIFlow
 class AppCoordinator: Coordinator {
 	
 	// MARK: - Properties
+    
+    var navigation: UINavigationController
+    weak var startViewController: UIViewController?
+    weak var topViewController: UIViewController?
+    var parent: Coordinator?
+    var child: Coordinator?
 	
 	var firstTime = true
 	var loggedIn = false
+    
+    // MARK: - Initialization
+    
+    init(navigation: UINavigationController) {
+        self.navigation = navigation
+    }
 	
 	// MARK: - Coordinator
 	
-	override func start(animated: Bool) {
+	func start(animated: Bool) {
 		if firstTime {
 			navigateToOnboarding(animated: animated)
 		} else if loggedIn {
@@ -17,94 +29,71 @@ class AppCoordinator: Coordinator {
 		} else {
 			navigateToLogin(animated: animated)
 		}
-		if let currentViewController = navigation.viewControllers.last {
-			navigation.setViewControllers([currentViewController], animated: false)
-		}
 	}
-}
 
-// MARK: - LoginViewNavigation
-extension AppCoordinator: LoginViewNavigation {
+    // MARK: - Login
 	
 	func navigateToLogin(animated: Bool) {
 		guard let scene = LoginViewController.instantiate() else { return }
-		scene.coordinator = self
-		navigation.pushViewController(scene, animated: animated)
+        scene.goToUserRegistration = { [weak self] in
+            self?.navigateToUserRegistration(animated: true)
+        }
+        scene.finishedLogin = { [weak self] in
+            self?.loggedIn = true
+            self?.start(animated: true)
+        }
+        move(to: scene, animated: animated)
 	}
-	
-	func goToUserRegistration(_ sender: LoginViewController) {
-		navigateToUserRegistration(animated: true)
-	}
-	
-	func finishedLogin(_ sender: LoginViewController) {
-		loggedIn = true
-		start(animated: true)
-	}
-}
 
-// MARK: - MenuViewNavigation
-extension AppCoordinator: MenuViewNavigation {
+    // MARK: - Menu
 	
 	func navigateToMenu(animated: Bool) {
 		guard let scene = MenuViewController.instantiate() else { return }
-		scene.coordinator = self
-		navigation.pushViewController(scene, animated: animated)
+        scene.goToItems = { [weak self] in
+            guard let self = self else { return }
+            let itemsCoordinator = ItemsCoordinator(navigation: self.navigation)
+            self.start(child: itemsCoordinator, animated: true)
+        }
+        scene.didLogout = { [weak self] in
+            self?.loggedIn = false
+            self?.backToStart(animated: true)
+            self?.start(animated: false)
+        }
+        move(to: scene, animated: animated)
 	}
-	
-	func goToItems(_ sender: MenuViewController) {
-		let itemsCoordinator = ItemsCoordinator(navigation: navigation)
-		start(child: itemsCoordinator, animated: true)
-	}
-	
-	func didLogout(_ sender: MenuViewController) {
-		loggedIn = false
-		start(animated: true)
-	}
-}
 
-// MARK: - OnboardingViewNavigation
-extension AppCoordinator: OnboardingViewNavigation {
+    // MARK: - Onboarding
 	
 	func navigateToOnboarding(animated: Bool) {
 		guard let scene = OnboardingViewController.instantiate() else { return }
-		scene.coordinator = self
-		navigation.pushViewController(scene, animated: animated)
+        scene.finishedOnboarding = { [weak self] in
+            self?.firstTime = false
+            self?.start(animated: true)
+        }
+        move(to: scene, animated: animated)
 	}
-	
-	func finishedOnboarding(_ sender: OnboardingViewController) {
-		firstTime = false
-		start(animated: true)
-	}
-}
 
-// MARK: - SuccessViewNavigation
-extension AppCoordinator: SuccessViewNavigation {
+    // MARK: - Success
 	
 	func navigateToSuccess(animated: Bool) {
 		guard let scene = SuccessViewController.instantiate() else { return }
-		scene.coordinator = self
-		navigation.pushViewController(scene, animated: animated)
+        scene.successViewFinished = { [weak self] in
+            self?.backToStart(animated: false)
+            self?.navigateToLogin(animated: true)
+        }
+        move(to: scene, animated: animated)
 	}
-	
-	func successViewFinished(_ sender: SuccessViewController) {
-		back(animated: true, toRoot: true)
-	}
-}
 
-// MARK: - UserRegistrationViewNavigation
-extension AppCoordinator: UserRegistrationViewNavigation {
+    // MARK: - UserRegistration
 	
 	func navigateToUserRegistration(animated: Bool) {
 		guard let scene = UserRegistrationViewController.instantiate() else { return }
-		scene.coordinator = self
-		navigation.pushViewController(scene, animated: animated)
-	}
-	
-	func userRegistrationCompleted(_ sender: UserRegistrationViewController) {
-		navigateToSuccess(animated: true)
-	}
-	
-	func userRegistrationCancelled(_ sender: UserRegistrationViewController) {
-		back(animated: true, toRoot: false)
+        scene.userRegistrationCompleted = { [weak self] in
+            self?.navigateToSuccess(animated: true)
+        }
+        scene.userRegistrationCancelled = { [weak self] in
+            self?.back(animated: true)
+        }
+        move(to: scene, animated: animated)
 	}
 }

@@ -1,8 +1,10 @@
 import UIFlow
 
-class OnboardingViewController: UIFlowViewController<ModelObservable, OnboardingViewNavigation> {
+class OnboardingViewController: UIFlowViewController {
 	
+    var finishedOnboarding: (() -> Void)?
+    
 	@IBAction func finishedButtonTouchUpInside(_ sender: Any) {
-		coordinator?.finishedOnboarding(self)
+		finishedOnboarding?()
 	}
 }

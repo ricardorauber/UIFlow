@@ -1,15 +1,23 @@
 import UIFlow
 
-class NewItemViewController: UIFlowViewController<NewItemViewFeatures, NewItemViewNavigation> {
+class NewItemViewController: UIFlowViewController {
+    
+    var viewModel: NewItemViewModel!
 	
 	@IBOutlet weak var itemNameTextField: UITextField!
+   
+    var newItemCompleted: (() -> Void)?
+    var newItemCanceled: (() -> Void)?
 	
-	override func updateUI() {
-		guard let viewModel = viewModel else { return }
-		if viewModel.state == .itemAdded {
-			itemNameTextField.text = nil
-			showAlert(title: "Nice!", message: "Item added!")
-		}
+	override func viewDidLoad() {
+        super.viewDidLoad()
+        observe(viewModel.$state) { [weak self] value in
+            guard let self = self else { return }
+            if value == .itemAdded {
+                self.itemNameTextField.text = nil
+                self.showAlert(title: "Nice!", message: "Item added!")
+            }
+        }
 	}
 	
 	func showAlert(title: String, message: String) {
@@ -20,18 +28,14 @@ class NewItemViewController: UIFlowViewController<NewItemViewFeatures, NewItemVi
 	
 	@IBAction func addItemButtonTouchUpInside(_ sender: Any) {
 		guard let itemName = itemNameTextField.text, !itemName.isEmpty else { return }
-		viewModel?.addItem(name: itemName)
+		viewModel.addItem(name: itemName)
 	}
 	
 	@IBAction func cancelButtonTouchUpInside(_ sender: Any) {
-		guard let viewModel = viewModel else {
-			coordinator?.newItemCanceled(self)
-			return
-		}
 		if viewModel.state == .itemAdded {
-			coordinator?.newItemCompleted(self)
+			newItemCompleted?()
 		} else {
-			coordinator?.newItemCanceled(self)
+			newItemCanceled?()
 		}
 	}
 }

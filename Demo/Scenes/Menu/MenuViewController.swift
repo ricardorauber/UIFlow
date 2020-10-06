@@ -1,12 +1,15 @@
 import UIFlow
 
-class MenuViewController: UIFlowViewController<ModelObservable, MenuViewNavigation> {
+class MenuViewController: UIFlowViewController {
+    
+    var goToItems: (() -> Void)?
+    var didLogout: (() -> Void)?
 	
 	@IBAction func itemsButtonTouchUpInside(_ sender: Any) {
-		coordinator?.goToItems(self)
+		goToItems?()
 	}
 	
 	@IBAction func logoutButtonTouchUpInside(_ sender: Any) {
-		coordinator?.didLogout(self)
+		didLogout?()
 	}
 }

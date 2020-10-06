@@ -1,12 +1,15 @@
 import UIFlow
 
-class UserRegistrationViewController: UIFlowViewController<ModelObservable, UserRegistrationViewNavigation> {
+class UserRegistrationViewController: UIFlowViewController {
+    
+    var userRegistrationCompleted: (() -> Void)?
+    var userRegistrationCancelled: (() -> Void)?
 	
 	@IBAction func registerButtonTouchUpInside(_ sender: Any) {
-		coordinator?.userRegistrationCompleted(self)
+		userRegistrationCompleted?()
 	}
 	
 	@IBAction func cancelButtonTouchUpInside(_ sender: Any) {
-		coordinator?.userRegistrationCancelled(self)
+		userRegistrationCancelled?()
 	}
 }

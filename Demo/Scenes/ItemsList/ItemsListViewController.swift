@@ -1,8 +1,13 @@
 import UIFlow
 
-class ItemsListViewController: UIFlowViewController<ItemsListViewFeatures, ItemsListViewNavigation> {
+class ItemsListViewController: UIFlowViewController {
+    
+    var viewModel: ItemsListViewModel!
 	
 	@IBOutlet weak var itemsTableView: UITableView!
+    
+    var addNewItem: (() -> Void)?
+    var closeItemsList: (() -> Void)?
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -10,11 +15,11 @@ class ItemsListViewController: UIFlowViewController<ItemsListViewFeatures, Items
 	}
 	
 	@IBAction func addItemButtonTouchUpInside(_ sender: Any) {
-		coordinator?.addNewItem(self)
+		addNewItem?()
 	}
 	
 	@IBAction func backButtonTouchUpInside(_ sender: Any) {
-		coordinator?.closeItemsList(self)
+		closeItemsList?()
 	}
 }
 
@@ -22,7 +27,7 @@ class ItemsListViewController: UIFlowViewController<ItemsListViewFeatures, Items
 extension ItemsListViewController: UITableViewDataSource {
 	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel?.items.count ?? 0
+		return viewModel.items.count
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

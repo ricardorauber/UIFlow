@@ -1,23 +1,36 @@
 import UIFlow
 
-class TestViewController: UIFlowViewController<TestViewModel, TestCoordinator> {
+class TestViewController: UIFlowViewController {
 	
+    // MARK: - Dependencies
+    
+    var viewModel: TestViewModel!
+    
+    // MARK: - Properties
+    
 	var dataLoaded: Bool = false
+    
+    // MARK: - Outlets
 	
 	@IBOutlet weak var label: UILabel!
+    
+    // MARK: - Life Cycle
 	
-	override func updateUI() {
-		super.updateUI()
-		if let loaded = viewModel?.loaded {
-			dataLoaded = loaded
-		}
+	override func viewDidLoad() {
+		super.viewDidLoad()
+        observe(viewModel.$loaded) { [weak self] value in
+            self?.dataLoaded = value
+        }
+        loadData()
 	}
+    
+    // MARK: - Data
 	
 	func loadData() {
-		viewModel?.load()
+		viewModel.load()
 	}
-	
-	func changeView(to: String) {
-		coordinator?.change(to: to)
-	}
+    
+    // MARK: - Actions
+    
+    var changeView: ((String) -> Void)?
 }

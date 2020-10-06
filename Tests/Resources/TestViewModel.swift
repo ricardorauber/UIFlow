@@ -1,12 +1,10 @@
-import UIFlow
+import Combine
 
-class TestViewModel: ModelObservable {
+class TestViewModel {
 	
-	var observers: [ModelObserver] = []
-	
-	private(set) var loaded: Bool
-	private(set) var name: String
-	private(set) var age: Int
+	@Published var loaded: Bool
+    @Published var name: String
+    @Published var age: Int
 	
 	init(name: String, age: Int) {
 		self.name = name
@@ -16,18 +14,15 @@ class TestViewModel: ModelObservable {
 	
 	func update(name: String) {
 		self.name = name
-		notifyObservers()
 	}
 	
 	func update(age: Int) {
 		self.age = age
-		notifyObservers()
 	}
 	
 	func load() {
 		name = "John"
 		age = 34
 		loaded = true
-		notifyObservers()
 	}
 }

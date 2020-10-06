@@ -1,17 +1,12 @@
 import UIFlow
+import Combine
 
-class NewItemViewModel: ModelObservable {
+class NewItemViewModel {
 	
-	var observers: [ModelObserver] = []
-	
-	private(set) var state: NewItemViewState = .started
-}
-
-extension NewItemViewModel: NewItemViewFeatures {
+	@Published var state: NewItemViewState = .started
 	
 	func addItem(name: String) {
 		Service.shared.items.append(Item(name: name))
 		state = .itemAdded
-		notifyObservers()
 	}
 }

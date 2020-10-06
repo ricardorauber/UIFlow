@@ -1,8 +1,10 @@
 import UIFlow
 
-class SuccessViewController: UIFlowViewController<ModelObservable, SuccessViewNavigation> {
+class SuccessViewController: UIFlowViewController {
 	
+    var successViewFinished: (() -> Void)?
+    
 	@IBAction func backButtonTouchUpInside(_ sender: Any) {
-		coordinator?.successViewFinished(self)
+		successViewFinished?()
 	}
 }

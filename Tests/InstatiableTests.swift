@@ -2,12 +2,12 @@ import Quick
 import Nimble
 @testable import UIFlow
 
-class StoryboardedTests: QuickSpec {
+class InstatiableTests: QuickSpec {
 	override func spec() {
 		
 		var viewController: UIViewController?
 		
-		describe("Storyboarded") {
+		describe("Instatiable") {
 			
 			context("instantiate") {
 				

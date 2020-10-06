@@ -1,10 +1,8 @@
 import UIFlow
 
-class ItemsListViewModel: ModelObservable, ItemsListViewFeatures {
+class ItemsListViewModel {
 	
-	var observers: [ModelObserver] = []
-	
-	var items: [Item] {
-		return Service.shared.items
-	}
+    var items: [Item] {
+        return Service.shared.items
+    }
 }

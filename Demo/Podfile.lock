@@ -1,10 +1,10 @@
 PODS:
-  - Nimble (8.0.7)
-  - Quick (2.2.0)
-  - UIFlow (1.0.0)
-  - UIFlow/Tests (1.0.0):
-    - Nimble (= 8.0.7)
-    - Quick (= 2.2.0)
+  - Nimble (8.1.2)
+  - Quick (3.0.0)
+  - UIFlow (2.0.0)
+  - UIFlow/Tests (2.0.0):
+    - Nimble (= 8.1.2)
+    - Quick (= 3.0.0)
 
 DEPENDENCIES:
   - UIFlow (from `../`)
@@ -20,10 +20,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Nimble: a73af6ecd4c9106f434f3d55fc54570be3739e0b
-  Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
-  UIFlow: b267198d67306b02c31dfcc9fc9ee13225e59738
+  Nimble: 3864815b4703c7ebffba875973c70e854489fbae
+  Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2
+  UIFlow: 6531f9b7530d69c05dcc04a083471b1f92e9604a
 
-PODFILE CHECKSUM: 6d1180b1ef7f28d6c1c3e022bdea5294308bbeb0
+PODFILE CHECKSUM: 68225756fed6cbf629ee3a03cf55d5bee3f60e13
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0.beta.2

@@ -9,34 +9,54 @@
 
 #### TL; DR
 
-`UIFlow` is a framework to let the `Coordinator` handle the navigation and the `ViewModel` handle data interaction. 
-You just need to make your `ViewControllers` subclass the `UIFlowViewController` and create `Coordinators` and `ViewModels` that will be used by these `ViewControllers`. To get the model observation, the `ViewModel` should implement the `ModelObservable` protocol.
+`UIFlow` is a framework to let the `Coordinator` handle the navigation between `UIViewControllers`. 
+You can use your `ViewControllers` (or subclass the `UIFlowViewController` class) and create `Coordinators` to handle everything. 
 
-There is also a `Storyboarded` protocol that will instantiate your `ViewController` from a storyboard file with the same name. 
+There is also a `Instantiable` protocol that will instantiate your `ViewController` from a storyboard or xib file with the same name. 
 Now, if you are really interested in how this can make your life easier, please read this documentation fully, it will take only a few minutes, but you can also download the code and see it in action with the given `Demo` project.
 
-In the end, your `ViewController` will look like this:
+In the end, your `ViewController` doesn´t need to know anything about navigation and may look like this:
 
 ```swift
+import Combine
 import UIFlow
 
-class LoginViewController: UIFlowViewController<LoginViewModel, LoginViewNavigation> {
+class LoginViewController: UIFlowViewController {
 	
+    // MARK: - Dependencies
+    
+    var viewModel: LoginViewModel!
+    
+    // MARK: - VC Actions
+    
+    var finishedLogin: (() -> Void)?
+    var goToUserRegistration: (() -> Void)?
+    
+    // MARK: - IB Outlets
+    
 	@IBOutlet private weak var emailTextField: UITextField!
 	@IBOutlet private weak var passwordTextField: UITextField!
 	
-	override func updateUI() {
-		if let isLoggedIn = viewModel?.isLoggedIn, isLoggedIn {
-			coordinator?.finishedLogin(self)
-		}
+    // MARK: - Life Cycle
+    
+	override func viewDidLoad() {
+        super.viewDidLoad()
+        observe(viewModel.$state) { [weak self] state in
+            guard let self = self else { return }
+            switch state {
+            case .loggedIn: self.finishedLogin?()
+            case .loginError: self.showError()
+        }
 	}
+    
+    // MARK: - IB Actions
 	
 	@IBAction func userRegistrationButtonTouchUpInside(_ sender: Any) {
-		coordinator?.goToUserRegistration(self)
+		goToUserRegistration?()
 	}
 	
 	@IBAction func loginButtonTouchUpInside(_ sender: Any) {
-		viewModel?.login(email: emailTextField.text, password: passwordTextField.text)
+		viewModel.login(email: emailTextField.text, password: passwordTextField.text)
 	}
 }
 ```
@@ -68,7 +88,7 @@ If you are using CocoaPods, add this to your Podfile and run `pod install`.
 
 ```Ruby
 target 'Your target name' do
-    pod 'UIFlow', '~> 1.0'
+    pod 'UIFlow', '~> 2.0'
 end
 ```
 
@@ -78,12 +98,10 @@ If you want to add it manually to your project, without a package manager, just 
 
 ## How does it work?
 
-Ok, let's start with the basics. `UIFlow` is so simple that it has only 5 protocols/models:
+Ok, let's start with the basics. `UIFlow` is so simple that it has only these protocols/models:
 
-* Storyboarded
+* Instantiable
 * Coordinator
-* ModelObserver
-* ModelObservable
 * UIFlowViewController
 
 Really, that's it? Yes! In general, this is how a simple app looks like:
@@ -94,11 +112,9 @@ See? Now let's talk about each part of it.
 
 ## Concepts
 
-### Storyboarded
+### Instantiable
 
-Ok, if you prefer `NIBs` over `Storyboards`, feel free to move to the next concept, but after seeing this, you might change your mind. I like `Storyboards`, but only for designing a specific `ViewController`. 
-
-I saw this protocol out there, it can instantiate a `ViewController` from the `initial view controller` of a `storyboard file with the same name` and fell in love with it, it is amazing! Here you can see how easy it is to use, let's say that we have created this `LoginViewController` and set it as the initial view controller:
+I saw some protocols out there to instantiate `ViewControllers` from `storyboards` or  `xibs` with the same file name, so I put it all together in a unique protocol. Here you can see how easy it is to use, let's say that we have created this `LoginViewController` and set it as the initial view controller:
 
 * LoginViewController.storyboard
 * LoginViewController.swift
@@ -110,8 +126,7 @@ This is how you use it in a `Coordinator`:
 ```swift
 func navigateToLogin(animated: Bool) {
 	guard let scene = LoginViewController.instantiate() else { return }
-	scene.coordinator = self
-	navigation.pushViewController(scene, animated: animated)
+	move(to: scene, animated: animated)
 }
 ```
 
@@ -125,9 +140,9 @@ You might already saw many different implementations of the `Coordinator` patter
 
 _For instance:_
 
-On a `LoginViewController`, there will be some inputs with validation and the login service. When the login is completed successfully, where  should the user go? To the menu? To some specific area that only logged users can see? Well, it doesn't matter! 
+On a `LoginViewController`, there will be some inputs with validation and the login service. When the login is completed successfully, where should the user go? To the menu? To some specific area that only logged users can see? Well, it doesn't matter! 
 
-The `LoginViewController` will only tell the `Coordinator` that the login was successful and leave the navigation to the `Coordinator`. With that, an `AccessCoordinator` could simple navigate to the menu and a `PremiumCoordinator` could navigate to a secret area, for example. 
+The `LoginViewController` will only tell the `Coordinator` that the login was successful and leave the navigation to the `Coordinator`. With that, an `AccessCoordinator`, for instance, could simple navigate to the menu and a `PremiumCoordinator` could navigate to a secret area. 
 
 See what's happening? The `LoginViewController` doesn't care about where it should go, just need to do what it was meant to do.
 
@@ -138,14 +153,26 @@ import UIFlow
 
 class AppCoordinator: Coordinator {
 	
-	// MARK: - Properties
+    // MARK: - Properties
+    
+    var navigation: UINavigationController
+    weak var startViewController: UIViewController?
+    weak var topViewController: UIViewController?
+    var parent: Coordinator?
+    var child: Coordinator?
 	
 	var firstTime = true
 	var loggedIn = false
+    
+    // MARK: - Initialization
+    
+    init(navigation: UINavigationController) {
+        self.navigation = navigation
+    }
 	
 	// MARK: - Coordinator
 	
-	override func start(animated: Bool) {
+	func start(animated: Bool) {
 		if firstTime {
 			navigateToOnboarding(animated: animated)
 		} else if loggedIn {
@@ -153,29 +180,23 @@ class AppCoordinator: Coordinator {
 		} else {
 			navigateToLogin(animated: animated)
 		}
-		if let currentViewController = navigation.viewControllers.last {
-			navigation.setViewControllers([currentViewController], animated: false)
-		}
 	}
-}
 
-// MARK: - LoginViewNavigation
-extension AppCoordinator: LoginViewNavigation {
+    // MARK: - Login 
 	
-	func navigateToLogin(animated: Bool) {
-		guard let scene = LoginViewController.instantiate() else { return }
-		scene.coordinator = self
-		navigation.pushViewController(scene, animated: animated)
-	}
-	
-	func goToUserRegistration(_ sender: LoginViewController) {
-		navigateToUserRegistration(animated: true)
-	}
-	
-	func finishedLogin(_ sender: LoginViewController) {
-		loggedIn = true
-		start(animated: true)
-	}
+    func navigateToLogin(animated: Bool) {
+        guard let scene = LoginViewController.instantiate() else { return }
+        scene.goToUserRegistration = { [weak self] in
+            self?.navigateToUserRegistration(animated: true)
+        }
+        scene.finishedLogin = { [weak self] in
+            self?.loggedIn = true
+            self?.start(animated: true)
+        }
+        move(to: scene, animated: animated)
+    }
+    
+    ...
 }
 ...
 ```
@@ -211,140 +232,55 @@ func closeItemsList(_ sender: ItemsListViewController) {
 
 And that's all! It will go back to the parent's flow.
 
-### ViewModel - ModelObservable
-
-MVC, MVVM, MVP, VIPER... there are so many different possibilities! I have chosen the `MVVM` approach for some reasons:
-
-* Widely used
-* Naming convention
-* Android has it natively
-* `ViewModel` doesn't own the `ViewController`
-
-I am not saying that this is the best design, but it is my favorite. In `UIFlow`, the `ViewModel` is actually just a generic property that can be used to observe data. It can get really interesting if you implement the `ModelObservable` protocol. By doing that, your `ViewModel` will be able to be observed by many different observers. This means that you can either have one `ViewModel` per `ViewController` (my preference) or a shared `ViewModel` owned by the `Coordinator` to be used by many different `ViewControllers`.
-
-Any object that wants to listen for updates in the `ModelObservable` object should call the `subscribe` method to be notified when it happens. In the same way, to stop listening you just need to call the `unsubscribe` method.
-
-Now the integration part, let's say you have a `LoginViewModel` with `email` and `password` properties and you did create an extension to implement the `ModelObservable` protocol. If you want to tell all the observers when the data was changed, you can call the `notifyObservers()` method and it will execute all related closures, like this:
-
-```swift
-private(set) var email: String
-private(set) var password: String
-
-var canSubmit: Bool {
-	return email.isValidEmail && password.isValidPassword
-}
-
-func update(email: String) {
-	self.email = email
-	notifyObservers()
-}
-	
-func update(password: String) {
-	self.password = password
-	notifyObservers()
-}
-```
-
-And in the `LoginViewController`:
-
-```swift
-override func updateUI() {
-	guard let viewModel = viewModel else { return }
-	loginButton.isEnabled = viewModel.canSubmit
-}
-
-@IBAction func loginButtonTouchUpInside(_ sender: UIButton) {
-	guard let viewModel = viewModel else { return }
-	if viewModel.canSubmit {
-		viewModel.login()
-	}
-}
-
-func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-	if let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) {
-		if textField === emailTextField {
-			viewModel?.update(email: text)
-		} else if textField === passwordTextField {
-			viewModel?.update(password: text)
-		}
-	}
-	return true
-}
-```
-
-In this case, the `LoginViewController` is a subclass of the `UIFlowViewController`, so it has the `updateUI()` method that was used in the `subscribe` method to be executed everytime there is a change on the `ViewModel` generic property. Please take a look at the next concept for a detailed explanation on it.
-
 ### UIFlowViewController
 
-All of the other objects are dependency-free, so you can use them together or not, but to make the best use of this framework, you should use the `UIFlowViewController`.
-
-Why? Simple, it already has `ViewModel` and `Coordinator` properties. They are generic and the `UIFlowViewController<ViewModel, Coordinator>` will do the dirt part of subscribing and unsubscribing from the notifications of the `ViewModel` in case it implements the `ModelObservable` protocol.
-
-If you have read all the documentation, you will now understand how all the pieces will come together nicely, otherwise it might be missing some information, so please take a look at the other concepts first.
-
-Here is an implementation of the `UIFlowViewController` for the `Login` scene using a `LoginViewFeatures` protocol for the `ViewModel` property and a `LoginViewNavigation` protocol for the `Coordinator` property:
+The `UIFlowViewController` it's a very simple `UIViewController` that implements the basics of the `Combine` framework for model observation using the `observe()` method. So if you want to benefit from it, you could simple use it like this:
 
 ```swift
 import UIFlow
 
-class LoginViewController: UIFlowViewController<LoginViewFeatures, LoginViewNavigation> {
-
-	// MARK: - IBOutlets
-
-	@IBOutlet private weak var emailTextField: UITextField!
-	@IBOutlet private weak var passwordTextField: UITextField!
-	@IBOutlet private weak var loginButton: UIButton!
-	
-	// MARK: - User Interface
-
-	override func updateUI() {
-		guard let viewModel = viewModel else { return }
-		loginButton.isEnabled = viewModel.canSubmit
-		if viewModel.isLoggedIn {
-			coordinator?.loginCompleted(self)
-		}
-		if viewModel.loginFailed {
-			showAlert(title: "Error", message: "Login failed")
-		}
-	}
-	
-	func showAlert(title: String, message: String) {
-		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-		present(alert, animated: true, completion: nil)
-	}
-
-	// MARK: - IBActions
-	
-	@IBAction func regiterButtonTouchUpInside(_ sender: UIButton) {
-		coordinator?.goToUserRegistration()
-	}
-	
-	@IBAction func loginButtonTouchUpInside(_ sender: UIButton) {
-		guard let viewModel = viewModel else { return }
-		if viewModel.canSubmit {
-			viewModel.login()
-		}
-	}
-}
-
-// MARK: - UITextFieldDelegate
-extension LoginViewController: UITextFieldDelegate {
-
-	func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-		if let text = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) {
-			if textField === emailTextField {
-				viewModel?.update(email: text)
-			} else if textField === passwordTextField {
-				viewModel?.update(password: text)
-			}
-		}
-		return true
-	}
+class NewItemViewController: UIFlowViewController {
+    
+    var viewModel: NewItemViewModel!
+    
+    @IBOutlet weak var itemNameTextField: UITextField!
+   
+    var newItemCompleted: (() -> Void)?
+    var newItemCanceled: (() -> Void)?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        observe(viewModel.$state) { [weak self] value in
+            guard let self = self else { return }
+            if value == .itemAdded {
+                self.itemNameTextField.text = nil
+                self.showAlert(title: "Nice!", message: "Item added!")
+            }
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func addItemButtonTouchUpInside(_ sender: Any) {
+        guard let itemName = itemNameTextField.text, !itemName.isEmpty else { return }
+        viewModel.addItem(name: itemName)
+    }
+    
+    @IBAction func cancelButtonTouchUpInside(_ sender: Any) {
+        if viewModel.state == .itemAdded {
+            newItemCompleted?()
+        } else {
+            newItemCanceled?()
+        }
+    }
 }
 ```
 
-See how simple the `LoginViewController` is and how it doesn't care about the data itself and the navigation? This is what I was trying to achieve! The `LoginViewController` only takes care of the user interaction and let the `ViewModel` and the `Coordinator` do their job.
+See how simple the `NewItemViewController` is and how it doesn't care about the data itself and the navigation? This is what I was trying to achieve! The `NewItemViewController` only takes care of the user interaction and let the `ViewModel` and the `Coordinator` do their job.
 
 ## Thanks 👍
 

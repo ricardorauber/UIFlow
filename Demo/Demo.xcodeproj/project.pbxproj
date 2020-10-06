@@ -7,36 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13CBD0F1252CD2CE00C7796C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 13CBD0F0252CD2CD00C7796C /* README.md */; };
 		479D2948243D10C7000BF2F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2947243D10C7000BF2F9 /* AppDelegate.swift */; };
 		479D2951243D10CA000BF2F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 479D2950243D10CA000BF2F9 /* Assets.xcassets */; };
 		479D2954243D10CA000BF2F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479D2952243D10CA000BF2F9 /* LaunchScreen.storyboard */; };
 		479D295F243D10CB000BF2F9 /* DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D295E243D10CB000BF2F9 /* DemoTests.swift */; };
 		479D298F243D1755000BF2F9 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D296A243D1754000BF2F9 /* Item.swift */; };
 		479D2990243D1755000BF2F9 /* SuccessViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479D296D243D1754000BF2F9 /* SuccessViewController.storyboard */; };
-		479D2991243D1755000BF2F9 /* SuccessViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D296E243D1754000BF2F9 /* SuccessViewNavigation.swift */; };
 		479D2992243D1755000BF2F9 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D296F243D1754000BF2F9 /* SuccessViewController.swift */; };
 		479D2993243D1755000BF2F9 /* NewItemViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2971243D1754000BF2F9 /* NewItemViewState.swift */; };
-		479D2994243D1755000BF2F9 /* NewItemViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2972243D1754000BF2F9 /* NewItemViewNavigation.swift */; };
 		479D2995243D1755000BF2F9 /* NewItemViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479D2973243D1754000BF2F9 /* NewItemViewController.storyboard */; };
 		479D2996243D1755000BF2F9 /* NewItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2974243D1754000BF2F9 /* NewItemViewController.swift */; };
 		479D2997243D1755000BF2F9 /* NewItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2975243D1754000BF2F9 /* NewItemViewModel.swift */; };
-		479D2998243D1755000BF2F9 /* NewItemViewFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2976243D1754000BF2F9 /* NewItemViewFeatures.swift */; };
-		479D2999243D1755000BF2F9 /* UserRegistrationViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2978243D1754000BF2F9 /* UserRegistrationViewNavigation.swift */; };
 		479D299A243D1755000BF2F9 /* UserRegistrationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479D2979243D1754000BF2F9 /* UserRegistrationViewController.storyboard */; };
 		479D299B243D1755000BF2F9 /* UserRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D297A243D1754000BF2F9 /* UserRegistrationViewController.swift */; };
 		479D299C243D1755000BF2F9 /* MenuViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479D297C243D1754000BF2F9 /* MenuViewController.storyboard */; };
-		479D299D243D1755000BF2F9 /* MenuViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D297D243D1754000BF2F9 /* MenuViewNavigation.swift */; };
 		479D299E243D1755000BF2F9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D297E243D1754000BF2F9 /* MenuViewController.swift */; };
 		479D299F243D1755000BF2F9 /* ItemsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2980243D1754000BF2F9 /* ItemsListViewController.swift */; };
 		479D29A0243D1755000BF2F9 /* ItemsListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479D2981243D1754000BF2F9 /* ItemsListViewController.storyboard */; };
 		479D29A1243D1755000BF2F9 /* ItemsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2982243D1754000BF2F9 /* ItemsListViewModel.swift */; };
-		479D29A2243D1755000BF2F9 /* ItemsListViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2983243D1754000BF2F9 /* ItemsListViewNavigation.swift */; };
-		479D29A3243D1755000BF2F9 /* ItemsListViewFeatures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2984243D1754000BF2F9 /* ItemsListViewFeatures.swift */; };
-		479D29A4243D1755000BF2F9 /* LoginViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2986243D1754000BF2F9 /* LoginViewNavigation.swift */; };
 		479D29A5243D1755000BF2F9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D2987243D1754000BF2F9 /* LoginViewController.swift */; };
 		479D29A6243D1755000BF2F9 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479D2988243D1754000BF2F9 /* LoginViewController.storyboard */; };
 		479D29A7243D1755000BF2F9 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D298A243D1754000BF2F9 /* OnboardingViewController.swift */; };
-		479D29A8243D1755000BF2F9 /* OnboardingViewNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D298B243D1754000BF2F9 /* OnboardingViewNavigation.swift */; };
 		479D29A9243D1755000BF2F9 /* OnboardingViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479D298C243D1754000BF2F9 /* OnboardingViewController.storyboard */; };
 		479D29AA243D1755000BF2F9 /* DummyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D298E243D1754000BF2F9 /* DummyService.swift */; };
 		479D29B4243D18AE000BF2F9 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479D29B2243D18AE000BF2F9 /* AppCoordinator.swift */; };
@@ -55,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		13CBD0F0252CD2CD00C7796C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		479D2944243D10C7000BF2F9 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		479D2947243D10C7000BF2F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		479D2950243D10CA000BF2F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,30 +58,21 @@
 		479D2960243D10CB000BF2F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		479D296A243D1754000BF2F9 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		479D296D243D1754000BF2F9 /* SuccessViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SuccessViewController.storyboard; sourceTree = "<group>"; };
-		479D296E243D1754000BF2F9 /* SuccessViewNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessViewNavigation.swift; sourceTree = "<group>"; };
 		479D296F243D1754000BF2F9 /* SuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
 		479D2971243D1754000BF2F9 /* NewItemViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewItemViewState.swift; sourceTree = "<group>"; };
-		479D2972243D1754000BF2F9 /* NewItemViewNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewItemViewNavigation.swift; sourceTree = "<group>"; };
 		479D2973243D1754000BF2F9 /* NewItemViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewItemViewController.storyboard; sourceTree = "<group>"; };
 		479D2974243D1754000BF2F9 /* NewItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewItemViewController.swift; sourceTree = "<group>"; };
 		479D2975243D1754000BF2F9 /* NewItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewItemViewModel.swift; sourceTree = "<group>"; };
-		479D2976243D1754000BF2F9 /* NewItemViewFeatures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewItemViewFeatures.swift; sourceTree = "<group>"; };
-		479D2978243D1754000BF2F9 /* UserRegistrationViewNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationViewNavigation.swift; sourceTree = "<group>"; };
 		479D2979243D1754000BF2F9 /* UserRegistrationViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UserRegistrationViewController.storyboard; sourceTree = "<group>"; };
 		479D297A243D1754000BF2F9 /* UserRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegistrationViewController.swift; sourceTree = "<group>"; };
 		479D297C243D1754000BF2F9 /* MenuViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MenuViewController.storyboard; sourceTree = "<group>"; };
-		479D297D243D1754000BF2F9 /* MenuViewNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewNavigation.swift; sourceTree = "<group>"; };
 		479D297E243D1754000BF2F9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		479D2980243D1754000BF2F9 /* ItemsListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsListViewController.swift; sourceTree = "<group>"; };
 		479D2981243D1754000BF2F9 /* ItemsListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ItemsListViewController.storyboard; sourceTree = "<group>"; };
 		479D2982243D1754000BF2F9 /* ItemsListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsListViewModel.swift; sourceTree = "<group>"; };
-		479D2983243D1754000BF2F9 /* ItemsListViewNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsListViewNavigation.swift; sourceTree = "<group>"; };
-		479D2984243D1754000BF2F9 /* ItemsListViewFeatures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsListViewFeatures.swift; sourceTree = "<group>"; };
-		479D2986243D1754000BF2F9 /* LoginViewNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewNavigation.swift; sourceTree = "<group>"; };
 		479D2987243D1754000BF2F9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		479D2988243D1754000BF2F9 /* LoginViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		479D298A243D1754000BF2F9 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		479D298B243D1754000BF2F9 /* OnboardingViewNavigation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewNavigation.swift; sourceTree = "<group>"; };
 		479D298C243D1754000BF2F9 /* OnboardingViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = OnboardingViewController.storyboard; sourceTree = "<group>"; };
 		479D298E243D1754000BF2F9 /* DummyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyService.swift; sourceTree = "<group>"; };
 		479D29B2243D18AE000BF2F9 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -129,6 +113,7 @@
 		479D293B243D10C7000BF2F9 = {
 			isa = PBXGroup;
 			children = (
+				13CBD0F0252CD2CD00C7796C /* README.md */,
 				479D2946243D10C7000BF2F9 /* Demo */,
 				479D295D243D10CB000BF2F9 /* DemoTests */,
 				479D2945243D10C7000BF2F9 /* Products */,
@@ -195,7 +180,6 @@
 			children = (
 				479D296D243D1754000BF2F9 /* SuccessViewController.storyboard */,
 				479D296F243D1754000BF2F9 /* SuccessViewController.swift */,
-				479D296E243D1754000BF2F9 /* SuccessViewNavigation.swift */,
 			);
 			path = Success;
 			sourceTree = "<group>";
@@ -205,9 +189,7 @@
 			children = (
 				479D2973243D1754000BF2F9 /* NewItemViewController.storyboard */,
 				479D2974243D1754000BF2F9 /* NewItemViewController.swift */,
-				479D2976243D1754000BF2F9 /* NewItemViewFeatures.swift */,
 				479D2975243D1754000BF2F9 /* NewItemViewModel.swift */,
-				479D2972243D1754000BF2F9 /* NewItemViewNavigation.swift */,
 				479D2971243D1754000BF2F9 /* NewItemViewState.swift */,
 			);
 			path = NewItem;
@@ -218,7 +200,6 @@
 			children = (
 				479D2979243D1754000BF2F9 /* UserRegistrationViewController.storyboard */,
 				479D297A243D1754000BF2F9 /* UserRegistrationViewController.swift */,
-				479D2978243D1754000BF2F9 /* UserRegistrationViewNavigation.swift */,
 			);
 			path = UserRegistration;
 			sourceTree = "<group>";
@@ -228,7 +209,6 @@
 			children = (
 				479D297C243D1754000BF2F9 /* MenuViewController.storyboard */,
 				479D297E243D1754000BF2F9 /* MenuViewController.swift */,
-				479D297D243D1754000BF2F9 /* MenuViewNavigation.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -238,9 +218,7 @@
 			children = (
 				479D2981243D1754000BF2F9 /* ItemsListViewController.storyboard */,
 				479D2980243D1754000BF2F9 /* ItemsListViewController.swift */,
-				479D2984243D1754000BF2F9 /* ItemsListViewFeatures.swift */,
 				479D2982243D1754000BF2F9 /* ItemsListViewModel.swift */,
-				479D2983243D1754000BF2F9 /* ItemsListViewNavigation.swift */,
 			);
 			path = ItemsList;
 			sourceTree = "<group>";
@@ -250,7 +228,6 @@
 			children = (
 				479D2988243D1754000BF2F9 /* LoginViewController.storyboard */,
 				479D2987243D1754000BF2F9 /* LoginViewController.swift */,
-				479D2986243D1754000BF2F9 /* LoginViewNavigation.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -260,7 +237,6 @@
 			children = (
 				479D298C243D1754000BF2F9 /* OnboardingViewController.storyboard */,
 				479D298A243D1754000BF2F9 /* OnboardingViewController.swift */,
-				479D298B243D1754000BF2F9 /* OnboardingViewNavigation.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -384,6 +360,7 @@
 			files = (
 				479D29A6243D1755000BF2F9 /* LoginViewController.storyboard in Resources */,
 				479D2954243D10CA000BF2F9 /* LaunchScreen.storyboard in Resources */,
+				13CBD0F1252CD2CE00C7796C /* README.md in Resources */,
 				479D299C243D1755000BF2F9 /* MenuViewController.storyboard in Resources */,
 				479D2995243D1755000BF2F9 /* NewItemViewController.storyboard in Resources */,
 				479D2951243D10CA000BF2F9 /* Assets.xcassets in Resources */,
@@ -433,26 +410,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				479D2998243D1755000BF2F9 /* NewItemViewFeatures.swift in Sources */,
 				479D299F243D1755000BF2F9 /* ItemsListViewController.swift in Sources */,
-				479D29A8243D1755000BF2F9 /* OnboardingViewNavigation.swift in Sources */,
-				479D299D243D1755000BF2F9 /* MenuViewNavigation.swift in Sources */,
 				479D29A7243D1755000BF2F9 /* OnboardingViewController.swift in Sources */,
 				479D299E243D1755000BF2F9 /* MenuViewController.swift in Sources */,
 				479D29B4243D18AE000BF2F9 /* AppCoordinator.swift in Sources */,
 				479D298F243D1755000BF2F9 /* Item.swift in Sources */,
 				479D29AA243D1755000BF2F9 /* DummyService.swift in Sources */,
-				479D29A3243D1755000BF2F9 /* ItemsListViewFeatures.swift in Sources */,
-				479D29A4243D1755000BF2F9 /* LoginViewNavigation.swift in Sources */,
 				479D29A5243D1755000BF2F9 /* LoginViewController.swift in Sources */,
-				479D2994243D1755000BF2F9 /* NewItemViewNavigation.swift in Sources */,
 				479D299B243D1755000BF2F9 /* UserRegistrationViewController.swift in Sources */,
 				479D2993243D1755000BF2F9 /* NewItemViewState.swift in Sources */,
-				479D2991243D1755000BF2F9 /* SuccessViewNavigation.swift in Sources */,
-				479D29A2243D1755000BF2F9 /* ItemsListViewNavigation.swift in Sources */,
 				479D2997243D1755000BF2F9 /* NewItemViewModel.swift in Sources */,
 				479D2992243D1755000BF2F9 /* SuccessViewController.swift in Sources */,
-				479D2999243D1755000BF2F9 /* UserRegistrationViewNavigation.swift in Sources */,
 				479D29A1243D1755000BF2F9 /* ItemsListViewModel.swift in Sources */,
 				479D2996243D1755000BF2F9 /* NewItemViewController.swift in Sources */,
 				479D2948243D10C7000BF2F9 /* AppDelegate.swift in Sources */,
@@ -612,6 +580,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4W8Y567J5C;
 				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -631,6 +600,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4W8Y567J5C;
 				INFOPLIST_FILE = Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

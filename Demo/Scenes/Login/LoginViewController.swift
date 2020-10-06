@@ -1,12 +1,15 @@
 import UIFlow
 
-class LoginViewController: UIFlowViewController<ModelObservable, LoginViewNavigation> {
+class LoginViewController: UIFlowViewController {
+    
+    var goToUserRegistration: (() -> Void)?
+    var finishedLogin: (() -> Void)?
 	
 	@IBAction func userRegistrationButtonTouchUpInside(_ sender: Any) {
-		coordinator?.goToUserRegistration(self)
+		goToUserRegistration?()
 	}
 	
 	@IBAction func loginButtonTouchUpInside(_ sender: Any) {
-		coordinator?.finishedLogin(self)
+		finishedLogin?()
 	}
 }

@@ -29,9 +29,9 @@ class CoordinatorTests: QuickSpec {
 			context("navigation") {
 				
 				beforeEach {
-					coordinator.push(UIViewController())
-					coordinator.push(UIViewController())
-					coordinator.push(UIViewController())
+                    coordinator.move(to: UIViewController(), animated: false)
+                    coordinator.move(to: UIViewController(), animated: false)
+                    coordinator.move(to: UIViewController(), animated: false)
 				}
 				
 				it("should start with the start(animated:) method") {
@@ -39,15 +39,15 @@ class CoordinatorTests: QuickSpec {
 					expect(coordinator.started).to(beTrue())
 				}
 				
-				it("should go back one step if not set to go back to root") {
-					coordinator.back(animated: false, toRoot: false)
-					expect(navigation.children.count) == 2
-				}
-				
-				it("should go back all the way if set to go back to root") {
-					coordinator.back(animated: false, toRoot: true)
-					expect(navigation.children.count) == 1
-				}
+                it("should go back one step") {
+                    coordinator.back(animated: false)
+                    expect(navigation.children.count) == 2
+                }
+                
+                it("should go back all the way") {
+                    coordinator.backToStart(animated: false)
+                    expect(navigation.children.count) == 1
+                }
 			}
 			
 			context("child") {
@@ -55,6 +55,7 @@ class CoordinatorTests: QuickSpec {
 				var child: TestCoordinator!
 				
 				beforeEach {
+                    coordinator.move(to: UIViewController(), animated: false)
 					child = TestCoordinator(navigation: navigation)
 					coordinator.start(child: child, animated: false)
 				}
@@ -72,8 +73,8 @@ class CoordinatorTests: QuickSpec {
 				
 				it("should go back one step if the parent hasn't a current view controller") {
 					expect(child.parent).to(beIdenticalTo(coordinator))
-					child.push(UIViewController())
-					child.push(UIViewController())
+					child.move(to: UIViewController(), animated: false)
+					child.move(to: UIViewController(), animated: false)
 					child.finish(animated: false)
 					expect(navigation.children.count) == 1
 				}
@@ -81,7 +82,6 @@ class CoordinatorTests: QuickSpec {
 				it("should go back to the parent's current view controller") {
 					child.finish(animated: false)
 					let vc = UIViewController()
-					coordinator.currentViewController = vc
 					coordinator.push(vc)
 					coordinator.start(child: child, animated: false)
 					child.push(UIViewController())
