@@ -22,23 +22,23 @@ import Combine
 import UIFlow
 
 class LoginViewController: UIFlowViewController {
-	
+
     // MARK: - Dependencies
-    
+
     var viewModel: LoginViewModel!
-    
+
     // MARK: - VC Actions
-    
+
     var finishedLogin: (() -> Void)?
     var goToUserRegistration: (() -> Void)?
-    
+
     // MARK: - IB Outlets
-    
-	@IBOutlet private weak var emailTextField: UITextField!
-	@IBOutlet private weak var passwordTextField: UITextField!
-	
+
+    @IBOutlet private weak var emailTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+
     // MARK: - Life Cycle
-    
+
 	override func viewDidLoad() {
         super.viewDidLoad()
         observe(viewModel.$state) { [weak self] state in
@@ -46,18 +46,19 @@ class LoginViewController: UIFlowViewController {
             switch state {
             case .loggedIn: self.finishedLogin?()
             case .loginError: self.showError()
+            }
         }
-	}
-    
+    }
+
     // MARK: - IB Actions
-	
-	@IBAction func userRegistrationButtonTouchUpInside(_ sender: Any) {
-		goToUserRegistration?()
-	}
-	
-	@IBAction func loginButtonTouchUpInside(_ sender: Any) {
-		viewModel.login(email: emailTextField.text, password: passwordTextField.text)
-	}
+
+    @IBAction func userRegistrationButtonTouchUpInside(_ sender: Any) {
+        goToUserRegistration?()
+    }
+
+    @IBAction func loginButtonTouchUpInside(_ sender: Any) {
+        viewModel.login(email: emailTextField.text, password: passwordTextField.text)
+    }
 }
 ```
 
@@ -125,8 +126,8 @@ This is how you use it in a `Coordinator`:
 
 ```swift
 func navigateToLogin(animated: Bool) {
-	guard let scene = LoginViewController.instantiate() else { return }
-	move(to: scene, animated: animated)
+    guard let scene = LoginViewController.instantiate() else { return }
+    move(to: scene, animated: animated)
 }
 ```
 
@@ -152,7 +153,7 @@ Let's see it in action:
 import UIFlow
 
 class AppCoordinator: Coordinator {
-	
+
     // MARK: - Properties
     
     var navigation: UINavigationController
@@ -160,30 +161,30 @@ class AppCoordinator: Coordinator {
     weak var topViewController: UIViewController?
     var parent: Coordinator?
     var child: Coordinator?
-	
-	var firstTime = true
-	var loggedIn = false
-    
+
+    var firstTime = true
+    var loggedIn = false
+
     // MARK: - Initialization
-    
+
     init(navigation: UINavigationController) {
         self.navigation = navigation
     }
-	
-	// MARK: - Coordinator
-	
-	func start(animated: Bool) {
-		if firstTime {
-			navigateToOnboarding(animated: animated)
-		} else if loggedIn {
-			navigateToMenu(animated: animated)
-		} else {
-			navigateToLogin(animated: animated)
-		}
-	}
+
+    // MARK: - Coordinator
+
+    func start(animated: Bool) {
+        if firstTime {
+            navigateToOnboarding(animated: animated)
+        } else if loggedIn {
+            navigateToMenu(animated: animated)
+        } else {
+            navigateToLogin(animated: animated)
+        }
+    }
 
     // MARK: - Login 
-	
+
     func navigateToLogin(animated: Bool) {
         guard let scene = LoginViewController.instantiate() else { return }
         scene.goToUserRegistration = { [weak self] in
@@ -195,7 +196,7 @@ class AppCoordinator: Coordinator {
         }
         move(to: scene, animated: animated)
     }
-    
+
     ...
 }
 ...
@@ -217,8 +218,8 @@ So how can you go to a child flow? Like this:
 
 ```swift
 func goToItems(_ sender: MenuViewController) {
-	let itemsCoordinator = ItemsCoordinator(navigation: navigation)
-	start(child: itemsCoordinator, animated: true)
+    let itemsCoordinator = ItemsCoordinator(navigation: navigation)
+    start(child: itemsCoordinator, animated: true)
 }
 ```
 
@@ -226,7 +227,7 @@ Easy enough. Did finish your business in the flow? You can go back like this:
 
 ```swift
 func closeItemsList(_ sender: ItemsListViewController) {
-	finish(animated: true)
+    finish(animated: true)
 }
 ```
 
@@ -240,14 +241,22 @@ The `UIFlowViewController` it's a very simple `UIViewController` that implements
 import UIFlow
 
 class NewItemViewController: UIFlowViewController {
-    
+
+    // MARK: - Dependencies
+
     var viewModel: NewItemViewModel!
-    
+
+    // MARK: - IB Outlets
+
     @IBOutlet weak var itemNameTextField: UITextField!
-   
+
+    // MARK: - VC Actions
+
     var newItemCompleted: (() -> Void)?
     var newItemCanceled: (() -> Void)?
-    
+
+     // MARK: - Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         observe(viewModel.$state) { [weak self] value in
@@ -258,18 +267,22 @@ class NewItemViewController: UIFlowViewController {
             }
         }
     }
-    
+
+    // MARK: - Alerts
+
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
-    
+
+    // MARK: - IB Outlets 
+
     @IBAction func addItemButtonTouchUpInside(_ sender: Any) {
         guard let itemName = itemNameTextField.text, !itemName.isEmpty else { return }
         viewModel.addItem(name: itemName)
     }
-    
+
     @IBAction func cancelButtonTouchUpInside(_ sender: Any) {
         if viewModel.state == .itemAdded {
             newItemCompleted?()
