@@ -10,9 +10,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		let navigation = UINavigationController()
 		navigation.isNavigationBarHidden = true
-		coordinator = AppCoordinator(navigation: navigation)
-		coordinator?.start(animated: false)
-		
+//		let coordinator = AppCoordinator(navigation: navigation)
+        
+        let coordinator = MenuCoordinator(navigation: navigation)
+        coordinator.addItem(title: "Item 1",
+                            image: nil,
+                            selectedImage: nil,
+                            coordinator: AppCoordinator())
+        coordinator.addItem(title: "Item 2",
+                            image: nil,
+                            selectedImage: nil,
+                            coordinator: AppCoordinator())
+        for item in coordinator.items {
+            item.navigation.isNavigationBarHidden = true
+        }
+        coordinator.start(animated: false)
+        self.coordinator = coordinator
+        
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.rootViewController = navigation
 		window?.makeKeyAndVisible()

@@ -15,7 +15,7 @@ class AppCoordinator: Coordinator {
     
     // MARK: - Initialization
     
-    init(navigation: UINavigationController) {
+    init(navigation: UINavigationController = UINavigationController()) {
         self.navigation = navigation
     }
 	

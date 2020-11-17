@@ -89,7 +89,7 @@ If you are using CocoaPods, add this to your Podfile and run `pod install`.
 
 ```Ruby
 target 'Your target name' do
-    pod 'UIFlow', '~> 2.0'
+    pod 'UIFlow', '~> 2.1'
 end
 ```
 
@@ -232,6 +232,61 @@ func closeItemsList(_ sender: ItemsListViewController) {
 ```
 
 And that's all! It will go back to the parent's flow.
+
+### TabBarCoordinator
+
+Sometimes you need a `TabBar` in your apps, so to work with this kind of navigation, I have created the `TabBarCoordinator`. As expected, it is very simple:
+
+```swift
+import UIFlow
+
+class MenuCoordinator: TabBarCoordinator {
+    
+    // MARK: - Coordinator Properties
+    
+    var navigation: UINavigationController
+    weak var startViewController: UIViewController?
+    weak var topViewController: UIViewController?
+    var parent: Coordinator?
+    var child: Coordinator?
+    
+    // MARK: - TabBarCoordinator Properties
+    
+    let tabBar: UITabBarController
+    var items: [Coordinator]
+    
+    // MARK: - Initialization
+    
+    init(navigation: UINavigationController,
+         tabBar: UITabBarController = UITabBarController()) {
+        
+        self.navigation = navigation
+        self.tabBar = tabBar
+        items = []
+    }
+}
+```
+
+And it is also very easy to use, you just need to add the tab bar items with one of these methods:
+
+```swift
+let tabBarItem = UITabBarItem(title: "Item 1",
+                              image: nil,
+                              selectedImage: nil)
+coordinator.addItem(tabBarItem: tabBarItem,
+                    coordinator: TestCoordinator(navigation: UINavigationController()))
+                    
+coordinator.addItem(title: "Item 2",
+                    image: nil,
+                    selectedImage: nil,
+                    coordinator: AnotherCoordinator())
+```
+
+Finally, if you need to remove one of the items, just do it like this:
+
+```swift
+coordinator.removeItem(at: 0)
+```
 
 ### UIFlowViewController
 
