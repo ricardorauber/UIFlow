@@ -10,10 +10,7 @@ open class UIFlowViewController: UIViewController {
     // MARK: - Life Cycle
     
     deinit {
-        for cancellable in cancellables {
-            cancellable.cancel()
-        }
-        cancellables.removeAll()
+        removeObservers()
     }
     
     // MARK: - Observation
@@ -22,5 +19,12 @@ open class UIFlowViewController: UIViewController {
         cancellables.append(publisher.sink { value in
             action(value)
         })
+    }
+    
+    public func removeObservers() {
+        for cancellable in cancellables {
+            cancellable.cancel()
+        }
+        cancellables.removeAll()
     }
 }

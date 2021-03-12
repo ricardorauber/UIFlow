@@ -350,6 +350,17 @@ class NewItemViewController: UIFlowViewController {
 
 See how simple the `NewItemViewController` is and how it doesn't care about the data itself and the navigation? This is what I was trying to achieve! The `NewItemViewController` only takes care of the user interaction and let the `ViewModel` and the `Coordinator` do their job.
 
+#### Removing observers
+
+The `UIFlowViewController` will remove all observers on `deinit` but if there is another strong reference to the view controller, then `deinit` is not called, but you can easily remove all observers by calling `removeObservers()`:
+
+```swift
+@IBAction func backButtonTapped(sender: UIButton) {
+    removeObservers()
+    backAction()
+}
+```
+
 ## Thanks 👍
 
 The creation of this framework was possible thanks to these awesome people:
