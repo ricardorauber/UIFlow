@@ -1,25 +1,13 @@
 import UIFlow
 
-class TestCoordinator: Coordinator {
-    
-    var navigation: UINavigationController
-    weak var startViewController: UIViewController?
-    weak var topViewController: UIViewController?
-    var parent: Coordinator?
-    var child: Coordinator?
+class TestCoordinator: UIFlowCoordinator {
 
 	var started = false
 	var changedTo: String?
-    
-    // MARK: - Initialization
-    
-    init(navigation: UINavigationController) {
-        self.navigation = navigation
-    }
 	
 	// MARK: - Coordinator
 	
-	func start(animated: Bool) {
+	override func start(animated: Bool) {
 		started = true
 	}
 	

@@ -1,24 +1,10 @@
 import UIFlow
 
-class ItemsCoordinator: Coordinator {
-    
-    // MARK: - Properties
-    
-    var navigation: UINavigationController
-    weak var startViewController: UIViewController?
-    weak var topViewController: UIViewController?
-    var parent: Coordinator?
-    var child: Coordinator?
-    
-    // MARK: - Initialization
-    
-    init(navigation: UINavigationController) {
-        self.navigation = navigation
-    }
+class ItemsCoordinator: UIFlowCoordinator {
 	
 	// MARK: - Coordinator
 	
-	func start(animated: Bool) {
+	override func start(animated: Bool) {
 		navigateToItemsList(animated: animated)
 	}
 

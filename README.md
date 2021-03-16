@@ -89,7 +89,7 @@ If you are using CocoaPods, add this to your Podfile and run `pod install`.
 
 ```Ruby
 target 'Your target name' do
-    pod 'UIFlow', '~> 2.1'
+    pod 'UIFlow', '~> 2.3'
 end
 ```
 
@@ -159,7 +159,7 @@ class AppCoordinator: Coordinator {
     var navigation: UINavigationController
     weak var startViewController: UIViewController?
     weak var topViewController: UIViewController?
-    var parent: Coordinator?
+    weak var parent: Coordinator?
     var child: Coordinator?
 
     var firstTime = true
@@ -233,6 +233,21 @@ func closeItemsList(_ sender: ItemsListViewController) {
 
 And that's all! It will go back to the parent's flow.
 
+### UIFlowCoordinator
+
+If you want to subclass a default `Coordinator`, I have added the `UIFlowCoordinator` open class. It is very simple, so you can subclass it as you wish without the need to add the properties all the time:
+
+```swift
+class StartupCoordinator: UIFlowCoordinator {
+
+    override func start(animated: Bool) {
+        navigateToLogin(animated: animated)
+    }
+    
+    ...
+}
+``` 
+
 ### TabBarCoordinator
 
 Sometimes you need a `TabBar` in your apps, so to work with this kind of navigation, I have created the `TabBarCoordinator`. As expected, it is very simple:
@@ -258,11 +273,12 @@ class MenuCoordinator: TabBarCoordinator {
     // MARK: - Initialization
     
     init(navigation: UINavigationController,
-         tabBar: UITabBarController = UITabBarController()) {
+         tabBar: UITabBarController = UITabBarController(),
+         items: [Coordinator] = []) {
         
         self.navigation = navigation
         self.tabBar = tabBar
-        items = []
+        self.items = items
     }
 }
 ```
@@ -286,6 +302,24 @@ Finally, if you need to remove one of the items, just do it like this:
 
 ```swift
 coordinator.removeItem(at: 0)
+```
+
+### UIFlowTabBarCoordinator
+
+As we have a simple implementation of the `Coordinator` protocol, we also have one for the `TabBarCoordinator` protocol, the `UIFlowTabBarCoordinator` open class.  It is also very easy to subclass:
+
+```swift
+class MenuCoordinator: UIFlowTabBarCoordinator {
+
+    var backgroundColor: UIColor? {
+        get {
+            tabBar.tabBar.standardAppearance.backgroundColor
+        }
+        set {
+            tabBar.tabBar.standardAppearance.backgroundColor = newValue
+        }
+    }
+}
 ```
 
 ### UIFlowViewController
