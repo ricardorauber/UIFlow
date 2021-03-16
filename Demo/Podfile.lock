@@ -1,8 +1,8 @@
 PODS:
   - Nimble (8.1.2)
   - Quick (3.0.0)
-  - UIFlow (2.0.0)
-  - UIFlow/Tests (2.0.0):
+  - UIFlow (2.3.0)
+  - UIFlow/Tests (2.3.0):
     - Nimble (= 8.1.2)
     - Quick (= 3.0.0)
 
@@ -22,8 +22,8 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Nimble: 3864815b4703c7ebffba875973c70e854489fbae
   Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2
-  UIFlow: 6531f9b7530d69c05dcc04a083471b1f92e9604a
+  UIFlow: 7245e83201c7f518c06a10722d913b3641b78876
 
 PODFILE CHECKSUM: 68225756fed6cbf629ee3a03cf55d5bee3f60e13
 
-COCOAPODS: 1.10.0.beta.2
+COCOAPODS: 1.10.1
