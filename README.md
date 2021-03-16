@@ -89,7 +89,7 @@ If you are using CocoaPods, add this to your Podfile and run `pod install`.
 
 ```Ruby
 target 'Your target name' do
-    pod 'UIFlow', '~> 2.3'
+    pod 'UIFlow', '~> 2'
 end
 ```
 
