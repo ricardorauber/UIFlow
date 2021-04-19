@@ -8,8 +8,8 @@ public protocol TabBarCoordinator: Coordinator {
     
     // MARK: - Items Properties
     
-    var currentItem: Coordinator { get }
     var items: [Coordinator] { get set }
+    var currentItem: Coordinator { get }
     
     // MARK: - Items Methods
     

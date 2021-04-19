@@ -2,7 +2,7 @@ import Quick
 import Nimble
 @testable import UIFlow
 
-class TabBarCoordinatorTests: QuickSpec {
+class UIFlowTabBarCoordinatorTests: QuickSpec {
     override func spec() {
         
         var navigation: UINavigationController!
@@ -86,20 +86,14 @@ class TabBarCoordinatorTests: QuickSpec {
     }
 }
 
-fileprivate class TestCoordinator: Coordinator {
-
-    var navigation: UINavigationController
-    weak var startViewController: UIViewController?
-    weak var topViewController: UIViewController?
-    weak var parent: Coordinator?
-    var child: Coordinator?
+fileprivate class TestCoordinator: UIFlowCoordinator {
 
 	var started = false
 	var changedTo: String?
 	
 	// MARK: - Coordinator
 	
-	func start(animated: Bool) {
+	override func start(animated: Bool) {
 		started = true
 	}
 	
@@ -117,31 +111,6 @@ fileprivate class TestCoordinator: Coordinator {
             }
         }
 	}
- 
-    // MARK: - Initialization
- 
-    init(navigation: UINavigationController) {
-        self.navigation = navigation
-    }
 }
 
-fileprivate class TestTabBarCoordinator: TabBarCoordinator {
-
-    var navigation: UINavigationController
-    weak var startViewController: UIViewController?
-    weak var topViewController: UIViewController?
-    weak var parent: Coordinator?
-    var child: Coordinator?
-
-    var tabBar: UITabBarController
-    var items: [Coordinator] = []
-    
-    init(navigation: UINavigationController,
-                tabBar: UITabBarController = UITabBarController(),
-                items: [Coordinator] = []) {
-        
-        self.navigation = navigation
-        self.tabBar = tabBar
-        self.items = items
-    }
-}
+fileprivate class TestTabBarCoordinator: UIFlowTabBarCoordinator {}

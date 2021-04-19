@@ -2,7 +2,7 @@ import Quick
 import Nimble
 @testable import UIFlow
 
-class CoordinatorTests: QuickSpec {
+class UIFlowCoordinatorTests: QuickSpec {
 	override func spec() {
 		
 		var navigation: UINavigationController!
@@ -94,20 +94,14 @@ class CoordinatorTests: QuickSpec {
 	}
 }
 
-fileprivate class TestCoordinator: Coordinator {
-
-    var navigation: UINavigationController
-    weak var startViewController: UIViewController?
-    weak var topViewController: UIViewController?
-    weak var parent: Coordinator?
-    var child: Coordinator?
+fileprivate class TestCoordinator: UIFlowCoordinator {
 
 	var started = false
 	var changedTo: String?
 	
 	// MARK: - Coordinator
 	
-	func start(animated: Bool) {
+	override func start(animated: Bool) {
 		started = true
 	}
 	
@@ -125,11 +119,5 @@ fileprivate class TestCoordinator: Coordinator {
             }
         }
 	}
- 
-    // MARK: - Initialization
- 
-    init(navigation: UINavigationController) {
-        self.navigation = navigation
-    }
 }
 

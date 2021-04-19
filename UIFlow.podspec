@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name                  = 'UIFlow'
-  s.version               = '2.3.1'
+  s.version               = '2.3.2'
   s.ios.deployment_target = '13.0'
   s.swift_versions        = ['5.0', '5.1', '5.2', '5.3', '5.4']
   s.author                = 'Ricardo Rauber Pereira'
