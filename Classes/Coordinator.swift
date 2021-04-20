@@ -40,7 +40,7 @@ extension Coordinator {
     
     public func move(to destination: UIViewController, animated: Bool) {
         if startViewController == nil {
-            startViewController = navigation.topViewController ?? destination
+            startViewController = destination
         }
         navigation.pushViewController(destination, animated: animated)
         topViewController = destination

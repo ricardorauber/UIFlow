@@ -26,7 +26,7 @@ open class UIFlowCoordinator: Coordinator {
     
     open func move(to destination: UIViewController, animated: Bool) {
         if startViewController == nil {
-            startViewController = navigation.topViewController ?? destination
+            startViewController = destination
         }
         navigation.pushViewController(destination, animated: animated)
         topViewController = destination
